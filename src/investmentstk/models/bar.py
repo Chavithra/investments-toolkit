@@ -63,6 +63,34 @@ class Bar:
             low=ohlc["l"],
         )
 
+    @classmethod
+    def from_degiro(cls, ohlc: Mapping) -> "Bar":
+        """
+        Converts a bar OHLC representation from Avanza into our
+        representation.
+        """
+
+        """
+        Timestamps from Avanza come in CET time. When retrieving daily bars,
+        a bar for the close of the day 2021-09-03 will be 1630620000000,
+        which is "Friday, September 3, 2021 12:00:00 AM GMT+02:00 DST".
+        If I treat that as a UTC timestamp, I get "Thursday, September 2, 2021 10:00:00 PM",
+        which is the day before.
+
+        However, I had issues with pandas when I tried to create a dataframe
+        with a timezone aware datetime, so I drop the timezone info.
+        """
+
+        local_tz = ZoneInfo("Europe/Stockholm")
+
+        return cls(
+            time=ohlc["timestamp"],
+            open=ohlc["open"],
+            close=ohlc["close"],
+            high=ohlc["high"],
+            low=ohlc["low"],
+        )
+
     @validator("time", pre=True)
     def parse_time(cls, value):
         """

@@ -1,5 +1,5 @@
 from operator import attrgetter
-from typing import Set
+from typing import Set, List
 
 import pandas as pd
 
@@ -60,5 +60,5 @@ def barset_to_single_column_dataframe(barset: BarSet, asset, column: str = "clos
     return df
 
 
-def barset_to_sorted_list(barset: BarSet) -> list[Bar]:
+def barset_to_sorted_list(barset: BarSet) -> List[Bar]:
     return sorted(list(barset), key=attrgetter("time"))

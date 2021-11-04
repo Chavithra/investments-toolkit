@@ -1,7 +1,8 @@
 from enum import Enum
-from typing import Type
+from typing import Dict
 
 from investmentstk.data_feeds.avanza_client import AvanzaClient
+from investmentstk.data_feeds.degiro_client import DegiroClient
 from investmentstk.data_feeds.cmc_client import CMCClient
 from investmentstk.data_feeds.data_feed import DataFeed
 
@@ -13,14 +14,16 @@ class Source(str, Enum):
     """
 
     Avanza = "AV"
-    Nordnet = "NN"
     CMC = "CMC"
+    Degiro = "DG"
+    Nordnet = "NN"
 
 
-SOURCES_DATA_FEED_MAP: dict[Source, Type[DataFeed]] = {
+SOURCES_DATA_FEED_MAP: Dict[Source, DataFeed] = {
     Source.Avanza: AvanzaClient,
-    Source.Nordnet: AvanzaClient,  # TODO: Not very elegant and very specific to my needs
     Source.CMC: CMCClient,
+    Source.Degiro: DegiroClient,
+    Source.Nordnet: AvanzaClient,  # TODO: Not very elegant and very specific to my needs
 }
 
 

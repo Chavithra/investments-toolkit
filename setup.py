@@ -35,6 +35,7 @@ setup(
         "numpy ~= 1.21.2",
         "plotly ~= 5.2.1",
         "kaleido ~= 0.2.1",
-        "python-dotenv ~= 0.19.0"
+        "python-dotenv ~= 0.19.0",
+        "degiro-connector ~= 2.0.4",
     ]
 )
